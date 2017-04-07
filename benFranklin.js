@@ -1,22 +1,19 @@
-var EventEmitter  = require('events').EventEmitter; //chain on to require and pulls constructor function out of event module.
-var util = require('util');
+var Person = require("./lib/Person"); //This loads Person Constructor; 
+//Core modules are required by name; custom modules reuired by path and must be exported.
 
-var Person = function(name) { //JS objects are functions
-    this.name = name;  //this object has a name property
-};
+var ben = new Person("Ben Franklin");  // This is a Person constructor, so we need to require Person constructor
+var george = new Person("George Washington"); // Used person object to create two instances of peopel
 
-//util.inherit allows inheritance
-util.inherits(Person, EventEmitter);//This one line means that the Person object inherits the EventEmitter
-//Person inherits functionality of event emitter
-
-var ben = new Person("Ben Franklin");
+george.on('speak', function(said) {
+    console.log(`${this.name} -> ${said}`);
+});
 
 ben.on('speak', function(said) {  //Person ben is using event function of on
     console.log(`${this.name}: ${said}`);
 });
 
 ben.emit('speak', "You may delay, but time will not."); 
-
+george.emit('speak', "It is far better to be alone than to be in bad company."); 
 //The EventEmitter provides us a way to create custom objects that raise custom events that can be handled asynchronously.
 
 //And because the events are handled asynchronously, it is a very important tool in node.js.
