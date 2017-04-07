@@ -1,5 +1,9 @@
 var fs = require("fs");
 
-var contents = fs.readFileSync("./lib/sayings.md","UTF-8");//if you remove encoding argument it will be binary
+ fs.readFile("./lib/sayings.md","UTF-8", function(err, contents) {
+     if (err) {
+         console.log(err);
+     } 
+     console.log(contents);
+ });
 
-console.log(contents);
