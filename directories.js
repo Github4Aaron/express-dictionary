@@ -5,12 +5,10 @@ var fs = require("fs");
 
 // console.log("This was a successful directory move.");
 
-fs.rmdir("./assets",function(err) {
-    if(err) {
-        throw err;
-    }
-    console.log("Assets directory removed");
-});
+fs.readdirSync("./logs").forEach(function(fileName) { //JS allows chaining so .forEach
+    fs.unlinkSync("./logs/" + fileName);//Each file name will be passed through callback function. 
+}) // 
+
 
 fs.rmdir("./logs", function(err) { //async used with callback
    if (err) {
