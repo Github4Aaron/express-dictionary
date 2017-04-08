@@ -1,4 +1,0 @@
-Aaron
-=========
-
-* honesty is important
