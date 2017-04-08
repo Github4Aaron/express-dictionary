@@ -10,22 +10,26 @@ rl.question("What is the name of a real person?", function(answer) {
    
    realPerson.name = answer;
 
+   var stream = fs.createWriteStream(realPerson.name + ".md");
+   stream.write(`${realPerson.name}\n=========\n\n`);
+
    //This will create a new markdown file with the person's name 
-   fs.writeFileSync(realPerson.name + ".md", `${realPerson.name}\n=========\n\n`);
+ 
 
    rl.setPrompt(`What would ${realPerson.name} say?`); // function to ask over and over
    rl.prompt();
 
    rl.on('line', function(saying){
-       realPerson.sayings.push(saying.trim());
+       
 
-       //This line will append the saying to their file. 
-       fs.appendFile(realPerson.name + ".md", `* ${saying.trim()}\n`);
 
        if (saying.toLowerCase().trim() === 'exit') {
+           stream.close();
            rl.close();
        } else {
-        rl.setPrompt(`What else would ${realPerson.name} say? ('exit' to leave)`); //when we collect teh saying, the prompt is reset.
+           realPerson.sayings.push(saying.trim()); 
+            stream.write(`* ${saying.trim()}\n`);
+            rl.setPrompt(`What else would ${realPerson.name} say? ('exit' to leave)`); //when we collect teh saying, the prompt is reset.
     
         rl.prompt();
        }
