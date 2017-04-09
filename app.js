@@ -1,19 +1,19 @@
-console.log(process.argv); //provides info about current process instance
-//argv is argument variables used to store instance
+/* jshint esnext: true */ //Run jshint but except ES6 syntax
+var http = require("http");
 
-//this command adds info to process array
-    //node app.js --name "George" --greeting "Good day sir"
+http.createServer(function(req, res) {
 
-function grab(flag) {  //argument is flag
-     var index = process.argv.indexOf(flag);
-     return (index === -1) ? null: process.argv[index+1];
-}
+   res.writeHead(200, {"Content-Type": "text/html"});
+   res.end(`<!DOCTYPE html>
+     <html>
+       <head>
+         <title>Web Server</title>
+       </head>
+       <body>
+         <h1>Hello World Aaron</h1>
+     </html> 
+   `);
 
-var greeting = grab('--greeting');
-var user = grab('--user');
+}).listen(3000);
 
-if (!user || !greeting) {
-    console.log("There is no user or greeting");
-} else {
-    console.log(`Welcome ${user}, ${greeting}`);
-}
+console.log("There is now a  server running at http://localhost:3000");
