@@ -1,19 +1,25 @@
-/* jshint esnext: true */ //Run jshint but except ES6 syntax
-var http = require("http");
+var express = require("express");
 
-http.createServer(function(req, res) {
+var app = express(); //this creates a new instance of an express app
 
-   res.writeHead(200, {"Content-Type": "text/html"});
-   res.end(`<!DOCTYPE html>
-     <html>
-       <head>
-         <title>Web Server</title>
-       </head>
-       <body>
-         <h1>Hello World Aaron</h1>
-     </html> 
-   `);
+//This custom middleware function is callback. 
+//whenver a requst, app will use this custom first and THEN express stattic
+//3 arguments, req, res, next. 
+//This adds functionality to the pipeline.
 
-}).listen(3000);
+app.use(function(req, res, next) {
+    console.log(`${req.method} request for ${req.url}`); //tell us details about the request
+    next(); //next function tells app to move to next piece of middleware.
+}); //One request for home page made 6 total GET requests
 
-console.log("There is now a  server running at http://localhost:3000");
+//Middleware is a customized plugins to use with express to add functionality.
+//Static file server and takes in name of directory where we want to server files.
+app.use(express.static("./public")); //this will get served
+//This will load css files
+
+app.listen(3000); //this means that app will listen on port for incoming requests
+
+console.log("Express app running on port 3000");
+
+//if we export this app instance as a module, this means we can use it in other files.
+module.exports = app; 

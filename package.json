@@ -1,0 +1,31 @@
+{
+  "name": "express-dictionary",
+  "version": "1.0.0",
+  "description": "A dictionary that defines key skiing terms and definitions.",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
+    "express": "^4.15.2",
+    "httpster": "^1.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Github4Aaron/express-dictionary.git"
+  },
+  "keywords": [
+    "ski",
+    "terms",
+    "dictionary"
+  ],
+  "author": "Aaron Strouse",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Github4Aaron/express-dictionary/issues"
+  },
+  "homepage": "https://github.com/Github4Aaron/express-dictionary#readme"
+}
