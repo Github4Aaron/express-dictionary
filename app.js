@@ -39,6 +39,17 @@ app.get("/dictionary-api", function(req, res) { //express adds functionality to 
 //This setups a POST route, 1st arg is path, 2nd arg is callback.
 app.post("/dictionary-api", function(req, res) {
     skierTerms.push(req.body); //This will push new term into array
+    res.json(skierTerms); //this will include new terms
+});
+
+//Routing variable is available on req.params, and then filter term OUT of dictionary
+//Filter takes in callback, and invoked for every term in array.
+//callback is PREDICATE (true or false)
+//if true, stay in array.
+app.delete("/dictionary-api/:term", function(req, res) {
+    skierTerms = skierTerms.filter(function(definition) {
+        return definition.term.toLowerCase() !== req.params.term.toLowerCase();
+    });
     res.json(skierTerms);
 });
 
