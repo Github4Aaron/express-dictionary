@@ -1,6 +1,7 @@
 var express = require("express");
 var cors = require("cors"); //cors is a function that returns middleware
 var app = express(); //this creates a new instance of an express app
+var bodyParser = require("body-parser");
 
 var skierTerms = [ //array of objects that have term / defined in it.
     {
@@ -16,10 +17,14 @@ var skierTerms = [ //array of objects that have term / defined in it.
         defined: "Powder after it has been sufficiently skied."
     }
 ];
+app.use(bodyParser.json()); //this was parse the post details
+//if data is sent url encoded, we will parse that as well. 
+app.use(bodyParser.urlencoded({extended: false}));
+//ABOVE:  we have parsed data; parse all variables that are posted to app and placed them on req object
 
 
-app.use(function(req, res, next) {
-    console.log(`${req.method} request for ${req.url}`); //tell us details about the request
+app.use(function(req, res, next) { //post data is on req object.
+    console.log(`${req.method} request for ${req.url} - ${JSON.stringify(req.body)}`); //tell us details about the request
     next(); //next function tells app to move to next piece of middleware.
 }); 
 
@@ -29,6 +34,11 @@ app.use(cors());
 
 //This setups a GET route/ first arg is location / second is function that handles request
 app.get("/dictionary-api", function(req, res) { //express adds functionality to res/req
+    res.json(skierTerms);
+});
+//This setups a POST route, 1st arg is path, 2nd arg is callback.
+app.post("/dictionary-api", function(req, res) {
+    skierTerms.push(req.body); //This will push new term into array
     res.json(skierTerms);
 });
 
